@@ -1,7 +1,33 @@
+@import "../../node_modules/reset-css/sass/reset";
+@import "bootstrap";
+
+@import "../../node_modules/bootstrap/scss/variables";
+@import "../../node_modules/bootstrap/scss/mixins";
+@import "../../node_modules/bootstrap/scss/root";
+@import "./css/variables";
+@import "./css/accordion";
+// 自行定義的變數路徑
+.accordion-item {
+	border-radius: $border-radius;
+}
+.accordion-button {
+	border-radius: $border-radius;
+}
 $primary-blue: #3546ff;
 $primary-melon: #ffc3ae;
 $alert-red: #ff5a5a;
+$neutrals-500: #a4a4a4;
+$font-title-l: 24px;
+$font-title-m: 20px;
+$font-title-s: 16px;
+$font-body-l: 16px;
+$font-body-m: 14px;
+$font-body-s: 12px;
 html,
 body {
 	font-family: "Noto Sans TC", sans-serif;
+}
+button {
+	border: none;
+	background: inherit;
 }
