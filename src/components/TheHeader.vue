@@ -4,14 +4,12 @@
     <div class="logo"><BusLogo />公車好找</div>
     <div class="climate"><WeatherLogo />天氣 <TemperatureLogo />氣溫</div>
   </div>
-
-  <div>123</div>
 </template>
 
 <script>
 import BusLogo from '../assets/svg/Bus-white.svg';
 import MenuIcon from '../assets/svg/menu.svg';
-import WeatherLogo from '../assets/svg/weather.svg';
+import WeatherLogo from '../assets/svg/climate.svg';
 import TemperatureLogo from '../assets/svg/temperature.svg';
 
 export default {
@@ -28,7 +26,7 @@ export default {
 <style lang="scss" scoped>
 .container {
   height: 60px;
-  background-color: $primary-blue;
+  background-color: $primary;
   color: #fff;
   display: flex;
   align-items: center;
