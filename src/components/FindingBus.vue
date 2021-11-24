@@ -17,7 +17,7 @@
   <StationCard class="mb-3" v-if="!isSearchOpen" />
   <StationCard class="pb-0" v-if="!isSearchOpen" />
   <div
-    @click="selectRoute"
+    @click="selectRoute(item)"
     class="searchItem mb-2"
     v-else
     v-for="(item, index) in searchResult"
@@ -25,7 +25,7 @@
   >
     路線：{{ item.RouteName.Zh_tw }}|| 起站：{{ item.DepartureStopNameZh }}|| 迄站：{{
       item.DestinationStopNameZh
-    }}{{ item.RouteUID }} {{ item.CityCode }}
+    }}{{ item.RouteUID }}
   </div>
 </template>
 
@@ -48,7 +48,7 @@ export default {
     // 依據關鍵字搜尋路線，並將路線的UID、起迄站、所屬縣市、中文名稱加入this.searchResult
     async searchRoute() {
       const res = await this.axios.get(
-        `https://ptx.transportdata.tw/MOTC/v2/Bus/Route/City/NewTaipei?$select=RouteName%2C%20CityCode%2C%20RouteUID%2C%20DepartureStopNameZh%2C%20DestinationStopNameZh&$filter=contains(RouteName%2FZh_tw%2C'${this.searchKeyWord}')&$top=30&$format=JSON`,
+        `https://ptx.transportdata.tw/MOTC/v2/Bus/Route/City/NewTaipei?$select=RouteName%2C%20City%2C%20RouteUID%2C%20DepartureStopNameZh%2C%20DestinationStopNameZh&$filter=contains(RouteName%2FZh_tw%2C'${this.searchKeyWord}')&$top=30&$format=JSON`,
         { headers: this.getAuthorizationHeader() },
       );
       this.searchResult = res.data;
@@ -60,9 +60,17 @@ export default {
     closeSearch() {
       this.isSearchOpen = false;
     },
-    selectRoute() {
+    selectRoute(stop) {
       console.log('select');
-      this.$router.push('busroute');
+      console.log(stop.DepartureStopNameZh);
+      console.log(stop.DestinationStopNameZh);
+      this.$router.push({
+        name: 'busRoute',
+        params: {
+          city: stop.City,
+          route: stop.RouteName.Zh_tw,
+        },
+      });
     },
   },
   inject: ['getAuthorizationHeader'],
