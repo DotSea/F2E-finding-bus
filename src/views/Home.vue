@@ -24,13 +24,13 @@ export default {
   background-color: #f8f8f8;
   padding: 20px;
   height: calc(100vh - 60px);
+  width: 100%;
 }
 .status {
   display: flex;
   justify-content: center;
   border-radius: $border-radius;
   background: #fff;
-  border: 1px solid black;
   .btn {
     background: #fff;
     padding-top: 12px;

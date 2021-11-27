@@ -27,12 +27,14 @@ $font-title-s: 16px;
 $font-body-l: 16px;
 $font-body-m: 14px;
 $font-body-s: 12px;
+
 html,
 body {
 	font-family: "Noto Sans TC", sans-serif;
 	box-sizing: border-box;
 	overflow-y: hidden;
 	height: 100%;
+	width: 100%;
 }
 button {
 	border: none;

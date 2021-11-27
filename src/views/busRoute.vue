@@ -2,7 +2,7 @@
   <div class="container">
     <div class="nav">
       <button class="btn back-to-index"><BackIcon /></button>
-      <div class="station-name">藍22</div>
+      <div class="station-name">{{ this.$route.params.route }}</div>
       <div class="options">
         <button class="btn"><LikeIcon /></button>
         <button class="btn"><InfoIcon /></button>
@@ -162,10 +162,8 @@ export default {
         `https://ptx.transportdata.tw/MOTC/v2/Bus/RealTimeNearStop/City/${this.$route.params.city}?$select=PlateNumb%20%2C%20StopUID%2C%20BusStatus%2C%20DutyStatus&$filter=RouteName%2FZh_tw%20eq%20%27${this.$route.params.route}%27&$format=JSON`,
         { headers: this.getAuthorizationHeader() },
       );
-      console.log(typeof busNearStop.data);
       /// 透過公車車牌取得公車種類，並加入至公車資料
       const busPlateNumb = busNearStop.data.map((stop) => Object.values(stop)[0]);
-      console.log(busPlateNumb);
       /// / 字串處理：處理成api格式
       const busApiType = busPlateNumb
         .map((plateNumb) => `(PlateNumb eq '${plateNumb}')`)
@@ -173,7 +171,6 @@ export default {
       const busType = await this.axios.get(
         `https://ptx.transportdata.tw/MOTC/v2/Bus/Vehicle/City/${this.$route.params.city}?$filter=${busApiType}&$top=30&$format=JSON`,
       );
-      console.log(busType);
       busNearStop.data.forEach((nearbyBus) => {
         busType.data.forEach((itemType) => {
           if (nearbyBus.PlateNumb === itemType.PlateNumb) {

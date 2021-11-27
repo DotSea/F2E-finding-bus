@@ -45,7 +45,7 @@ $grays: (
 
 // scss-docs-start color-variables
 $blue: #3546ff;
-$melon: #ffc3ae ;
+$melon: #ffc3ae;
 $indigo: #6610f2 !default;
 $purple: #6f42c1 !default;
 $pink: #d63384 !default;
@@ -77,7 +77,7 @@ $colors: (
 
 // scss-docs-start theme-color-variables
 $primary: $blue;
-$secondary: $melon ;
+$secondary: $melon;
 $success: $green !default;
 $info: $cyan !default;
 $warning: $yellow !default;
@@ -89,18 +89,18 @@ $dark: $gray-900 !default;
 // scss-docs-start theme-colors-map
 $theme-colors: (
 	"primary": $primary,
-	"secondary": $secondary,
+	"secondary": $melon,
 	"success": $success,
 	"info": $info,
 	"warning": $warning,
 	"danger": $danger,
 	"light": $light,
 	"dark": $dark,
-) !default;
+);
 // scss-docs-end theme-colors-map
 
 // scss-docs-start theme-colors-rgb
-$theme-colors-rgb: map-loop($theme-colors, to-rgb, "$value") !default;
+$theme-colors-rgb: map-loop($theme-colors, to-rgb, "$value");
 // scss-docs-end theme-colors-rgb
 
 // The contrast ratio to reach against white, to determine if color changes from "light" to "dark". Acceptable values for WCAG 2.0 are 3, 4.5 and 7.
@@ -492,12 +492,13 @@ $paragraph-margin-bottom: 1rem !default;
 // scss-docs-start grid-breakpoints
 $grid-breakpoints: (
 	xs: 0,
+	s: 376px,
 	sm: 576px,
 	md: 768px,
 	lg: 992px,
 	xl: 1200px,
 	xxl: 1400px,
-) !default;
+);
 // scss-docs-end grid-breakpoints
 
 @include _assert-ascending($grid-breakpoints, "$grid-breakpoints");
@@ -757,7 +758,7 @@ $table-variants: (
 	"danger": shift-color($danger, $table-bg-scale),
 	"light": $light,
 	"dark": $dark,
-) !default;
+);
 // scss-docs-end table-loop
 
 // Buttons + Forms
