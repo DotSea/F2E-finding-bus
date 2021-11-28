@@ -1,7 +1,20 @@
 <template>
   <div class="page">
     <div class="search-row">
-      <button><FavIcon /></button>
+      <button @click="openFavList"><FavIcon /></button>
+      <div v-show="isFavRouteListOpen" class="fav-route-list">
+        <div class="btn fav-route-item" v-if="!favRouteList || favRouteList.length === 0">
+          您尚未加入常用路線
+        </div>
+        <div
+          class="btn fav-route-item"
+          @click="selectRoute(route)"
+          v-for="route in favRouteList"
+          :key="route.id"
+        >
+          {{ route.RouteName.Zh_tw }} {{ route.startStop }} - {{ route.endStop }}
+        </div>
+      </div>
       <input
         readonly
         class="search-column"
@@ -12,20 +25,21 @@
         type="text"
         placeholder="搜尋公車路線"
       />
-      <button @mousedown="searchRoute(item)"><SearchIcon /></button>
     </div>
 
     <StationCard class="mb-3" v-if="!isSearchOpen" />
     <StationCard class="pb-0" v-if="!isSearchOpen" />
     <div v-else class="search-result" @mousedown.self="closeSearch">
       <button
-        @mousedown="selectRoute(item)"
+        @mousedown="selectRoute(route)"
         class="btn search-item mb-2"
-        v-for="(item, index) in searchResult"
-        :key="index"
+        v-for="route in searchResult"
+        :key="route.RouteUID"
       >
-        {{ item.RouteName.Zh_tw }} {{ item.DepartureStopNameZh }} -
-        {{ item.DestinationStopNameZh }}
+        <div class="route-name">{{ route.RouteName.Zh_tw }}</div>
+        <div class="start-end-stop">
+          {{ route.DepartureStopNameZh }} - {{ route.DestinationStopNameZh }}
+        </div>
       </button>
     </div>
     <VirtualKeyboard
@@ -42,7 +56,6 @@
 
 <script>
 import FavIcon from '../assets/svg/fav-icon.svg';
-import SearchIcon from '../assets/svg/search-icon.svg';
 import StationCard from './StationCard.vue';
 import VirtualKeyboard from './VirtualKeyborad.vue';
 
@@ -50,7 +63,6 @@ export default {
   name: 'index',
   components: {
     FavIcon,
-    SearchIcon,
     StationCard,
     VirtualKeyboard,
   },
@@ -61,9 +73,13 @@ export default {
       isSearchOpen: false,
       selectedCity: '',
       isKeyboardOpen: false,
+      isFavRouteListOpen: false,
     };
   },
   methods: {
+    openFavList() {
+      this.isFavRouteListOpen = !this.isFavRouteListOpen;
+    },
     chooseCity(data) {
       this.selectedCity = data;
     },
@@ -102,12 +118,13 @@ export default {
       console.log(event.target.innerText);
       this.searchKeyWord += event.target.innerText;
     },
-    selectRoute(stop) {
+    selectRoute(route) {
       this.$router.push({
         name: 'busRoute',
         params: {
-          city: stop.City,
-          route: stop.RouteName.Zh_tw,
+          city: route.City,
+          route: route.RouteName.Zh_tw,
+          routeUID: route.RouteUID,
         },
       });
     },
@@ -125,6 +142,11 @@ export default {
       this.initSearchResult();
     },
   },
+  computed: {
+    favRouteList() {
+      return JSON.parse(localStorage.getItem('favRouteList'));
+    },
+  },
   inject: ['getAuthorizationHeader'],
 };
 </script>
@@ -133,6 +155,20 @@ export default {
 .page {
   position: relative;
   height: calc(100vh - 60px);
+}
+.fav-route-list {
+  width: 262px;
+  height: 160px;
+  position: absolute;
+  background: $white;
+  color: $neutrals-600;
+  z-index: 99;
+  border-radius: $border-radius;
+  top: 66px;
+  .fav-route-item {
+    color: $neutrals-600;
+    font-size: $font-body-m;
+  }
 }
 .search-row {
   display: flex;
@@ -154,8 +190,12 @@ export default {
   }
 }
 .search-result {
+  background: $white;
+  border-radius: $border-radius;
   height: 80%;
   overflow-y: scroll;
+  padding-left: 20px;
+  padding-top: 10px;
 }
 .search-item {
   display: flex;
@@ -165,6 +205,14 @@ export default {
   background: $white;
   border-radius: $border-radius;
   width: 100%;
+  .route-name {
+    min-width: 80px;
+    padding-right: 20px;
+    text-align: left;
+  }
+  .start-end-stop {
+    color: $neutrals-600;
+  }
 }
 .virtual-keyboard {
   position: absolute;

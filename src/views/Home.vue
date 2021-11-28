@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <div class="status">
-      <div class="btn">找公車</div>
+      <div active class="btn">找公車</div>
       <button class="btn">路線規劃</button>
     </div>
     <FindingBus />
@@ -13,14 +13,16 @@ import FindingBus from '../components/FindingBus.vue';
 export default {
   name: 'index',
   data() {
-    return { isSearchOpen: false };
+    return { isSearchOpen: false, isFavRouteListOpen: false };
   },
+
   components: { FindingBus },
 };
 </script>
 
 <style lang="scss" scoped>
 .container {
+  position: relative;
   background-color: #f8f8f8;
   padding: 20px;
   height: calc(100vh - 60px);

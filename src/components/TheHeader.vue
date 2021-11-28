@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <MenuIcon class="menu" />
-    <div class="logo"><BusLogo />公車好找</div>
+    <div class="logo" @click="backToIndex"><BusLogo />公車好找</div>
     <div class="climate"><WeatherLogo />天氣 <TemperatureLogo />氣溫</div>
   </div>
 </template>
@@ -19,6 +19,11 @@ export default {
     MenuIcon,
     WeatherLogo,
     TemperatureLogo,
+  },
+  methods: {
+    backToIndex() {
+      this.$router.push('/');
+    },
   },
 };
 </script>
@@ -40,6 +45,7 @@ export default {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  cursor: pointer;
 }
 .climate {
   min-width: 107px;
