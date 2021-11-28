@@ -115,7 +115,6 @@ export default {
       this.isKeyboardOpen = false;
     },
     sendText(event) {
-      console.log(event.target.innerText);
       this.searchKeyWord += event.target.innerText;
     },
     selectRoute(route) {
