@@ -122,7 +122,6 @@ export default {
   },
   methods: {
     addToFavList() {
-      console.log(this.favRouteList);
       if (!this.isRouteInFavList) {
         this.favRouteList.push({
           RouteUID: this.$route.params.routeUID,
@@ -266,7 +265,6 @@ export default {
       // 抓取存在localStorage的常用站牌資料
       if (localStorage.getItem('favRouteList') !== null) {
         this.favRouteList = JSON.parse(localStorage.getItem('favRouteList'));
-        console.log(this.favRouteList);
       } else {
         this.favRouteList = [];
       }
