@@ -26,10 +26,10 @@
         placeholder="搜尋公車路線"
       />
     </div>
-
-    <StationCard class="mb-3" v-if="!isSearchOpen" />
-    <StationCard class="pb-0" v-if="!isSearchOpen" />
-    <div v-else class="search-result" @mousedown.self="closeSearch">
+    <!-- 常用站牌與附近站牌尚未實做，先隱藏起來 -->
+    <!-- <StationCard class="mb-3" v-if="!isSearchOpen" />
+    <StationCard class="pb-0" v-if="!isSearchOpen" /> -->
+    <div v-if="isSearchOpen" class="search-result" @mousedown.self="closeSearch">
       <button
         @mousedown="selectRoute(route)"
         class="btn search-item mb-2"
@@ -56,14 +56,14 @@
 
 <script>
 import FavIcon from '../assets/svg/fav-icon.svg';
-import StationCard from './StationCard.vue';
+// import StationCard from './StationCard.vue';
 import VirtualKeyboard from './VirtualKeyborad.vue';
 
 export default {
   name: 'index',
   components: {
     FavIcon,
-    StationCard,
+    // StationCard,
     VirtualKeyboard,
   },
   data() {
